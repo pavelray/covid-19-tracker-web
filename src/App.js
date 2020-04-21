@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <Nav title={appTitlePrimary} sub={appTitleSecondary} />
-      <div className="ui container" style={{padding:'10px'}}>
+      <div style={{padding:'10px'}}>
         <GlobalSummary />
       </div>
     </>

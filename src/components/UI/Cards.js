@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import CountUp from 'react-countup';
 
 export default function Cards({color,category,count,ratePercentage}) {
   return (
@@ -6,7 +7,7 @@ export default function Cards({color,category,count,ratePercentage}) {
             <div className="content">
                 <div className="description" style={{height: '80px'}}>
                     <div className="ui horizontal statistic">
-                        <div className="value">{count.toLocaleString('en')}</div>
+                        <div className="value"><CountUp end={count} separator =","/></div>
                         <div className="label">{category}</div>
                     </div>
                 </div>

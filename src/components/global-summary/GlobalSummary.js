@@ -42,7 +42,7 @@ export class GlobalSummary extends Component {
     } = this.state;
 
     return (
-      <div className="global-summary">
+      <div className="ui segment basic global-summary">
         <h2 class="ui center aligned header">
           Global Status
           <div class="sub header">Last updated on {this.state.lastUpdated}.</div>
