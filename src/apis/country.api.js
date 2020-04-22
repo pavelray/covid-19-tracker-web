@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export default axios.create({
-    baseURL: 'https://restcountries.eu/rest/v2/all'
+    baseURL: 'https://cors-anywhere.herokuapp.com/https://restcountries.eu/rest/v2/all'
 });
