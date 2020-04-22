@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import api from '../../apis/covid19.api';
 import Cards from '../UI/Cards';
 
@@ -13,7 +17,7 @@ export class GlobalSummary extends Component {
 
   async componentDidMount(){
     const response = await api.get('/');
-    console.log(response.data);
+    //console.log(response.data);
     const globalConfirmed = response.data.confirmed.value;
     const globalRecovered = response.data.recovered.value;
     const globaldeaths = response.data.deaths.value;
@@ -41,17 +45,36 @@ export class GlobalSummary extends Component {
       deathRatePercentage
     } = this.state;
 
+
     return (
-      <div className="ui segment basic global-summary">
-        <h2 class="ui center aligned header">
-          Global Status
-          <div class="sub header">Last updated on {this.state.lastUpdated}.</div>
-        </h2>
-        <div className="ui three cards">
-                <Cards color="orange" category="Confirmed" count={globalConfirmed} ratePercentage = {""}/>
-                <Cards color="olive" category="Recovered" count={globalRecovered} ratePercentage = {recoverRatePercentage}/>
-                <Cards color="red" category="Deaths" count={globaldeaths} ratePercentage = {deathRatePercentage}/>
-        </div>
+      <div>
+        <Grid container spacing={3} style={{padding: '20px'}}>
+            <Grid item xs={12}>
+              <Box style={{textAlign:'center'}}>
+                <Typography variant="h5" gutterBottom >
+                  Global Status
+                </Typography>
+                <Typography variant="subtitle1" gutterBottom>
+                  Last updated on {this.state.lastUpdated}.
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item xs>
+              <Paper>
+                <Cards color="orange-card-footer" category="Confirmed" count={globalConfirmed} ratePercentage = {""}/>
+              </Paper>
+            </Grid>
+            <Grid item xs>
+              <Paper>
+                <Cards color="olive-card-footer" category="Recovered" count={globalRecovered} ratePercentage = {recoverRatePercentage}/>
+              </Paper>
+            </Grid>
+            <Grid item xs>
+              <Paper>
+                <Cards color="red-card-footer" category="Deaths" count={globaldeaths} ratePercentage = {deathRatePercentage}/>
+              </Paper>
+            </Grid>
+        </Grid>
       </div>
     )
   }

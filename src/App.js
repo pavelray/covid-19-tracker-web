@@ -1,6 +1,7 @@
 import React from 'react';
 import Nav from './components/nav-bar/Nav'
 import GlobalSummary from './components/global-summary/GlobalSummary';
+import CountryDetailsContainer from './components/country-details/CountryDetailsContainer';
 
 function App() {
   const appTitlePrimary = 'Covid-19 Tracker';
@@ -11,6 +12,7 @@ function App() {
       <Nav title={appTitlePrimary} sub={appTitleSecondary} />
       <div style={{padding:'10px'}}>
         <GlobalSummary />
+        <CountryDetailsContainer />
       </div>
     </>
   );
