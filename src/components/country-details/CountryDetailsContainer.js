@@ -24,7 +24,7 @@ export class CountryDetailsContainer extends Component {
             
         },
         countryDetails : [],
-        selectedCountry: 'ind',
+        selectedCountry: 'IND',
         noDataFound: false
     }
 
@@ -42,17 +42,15 @@ export class CountryDetailsContainer extends Component {
     
 
     async componentDidMount(){
-        const response = await api.get('/');
+        const response = await covidApi.get('/countries');
         const data = response.data;
-        const countries =  data.map((country)=>{
+        console.log(data.countries);
+        const countries =  data.countries.map((country)=>{
             return {
                 text: country.name,
-                key: country.alpha2Code.toLowerCase(),
-                value: country.alpha3Code.toLowerCase(),
-                image: {
-                    src: country.flag,
-                    size:'mini'
-                }
+                key: country.iso2,
+                value: country.iso3,
+                flag: country.iso2 ? country.iso2.toLowerCase() : ''
             }
         });
 
@@ -70,7 +68,6 @@ export class CountryDetailsContainer extends Component {
             const lastUpdated = `${new Date(response.data.lastUpdate).toLocaleDateString()} ${new Date(response.data.lastUpdate).toLocaleTimeString()}`;
             const recoverRatePercentage = `${Math.round((recovered / confirmed) * 100)} % Recoverey Rate`;
             const deathRatePercentage = `${Math.round((deaths / confirmed) * 100)} % Fatality Rate`;
-            //console.log(response, lastUpdated);
             
             this.setState({
                 countryStautusSummary: {
@@ -128,6 +125,7 @@ export class CountryDetailsContainer extends Component {
 
         if(!this.state.noDataFound){
             return(
+                <>
                 <Grid container spacing={3} style={{padding: '20px'}}>
                     <Grid item xs>
                         <Paper>
@@ -145,6 +143,12 @@ export class CountryDetailsContainer extends Component {
                         </Paper>
                     </Grid>
                 </Grid>
+                <Grid container spacing={3} style={{padding: '20px'}}>
+                    <Grid item xs>
+                        <CountryDetailsTable columns={this.columns} data={this.state.countryDetails} />
+                    </Grid>
+                </Grid>
+                </>
             )
         }else{
             return(
@@ -185,11 +189,7 @@ export class CountryDetailsContainer extends Component {
                     {
                         this.renderCountrySummary()
                     }
-                    <Grid container spacing={3} style={{padding: '20px'}}>
-                        <Grid item xs>
-                            <CountryDetailsTable columns={this.columns} data={this.state.countryDetails} />
-                        </Grid>
-                    </Grid>
+                    
                 </div>
             )
         }
