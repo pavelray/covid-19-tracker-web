@@ -21,8 +21,7 @@ export default function Nav(props) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <AppBar position="static">
-        
+      <AppBar position="static" >
         <Toolbar>
           <img src={logo} alt='Logo' width="50" height="50"/>
           <Typography variant="h6" className={classes.title} style={{marginLeft: '15px'}}>
