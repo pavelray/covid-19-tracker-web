@@ -4,10 +4,6 @@ import covidApi from '../../apis/covid19.api';
 import CountryDDL from '../UI/CountryDDL';
 import Cards from '../UI/Cards';
 import CountryDetailsTable from '../UI/CountryDetailsTable';
-import {fetchAllCountries,fetchCountrySummary,fetchCountryDetails} from '../../redux/actions';
-
-import {connect} from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -19,7 +15,17 @@ import Divider from '@material-ui/core/Divider';
 export class CountryDetailsContainer extends Component {
 
     state = {
+        countries: [],
+        countryStautusSummary: {
+            confirmed: 0,
+            recovered: 0,
+            deaths: 0,
+            lastUpdated: '',
+            
+        },
+        countryDetails : [],
         selectedCountry: 'IND',
+        noDataFound: false
     }
 
     columns = [
@@ -36,17 +42,73 @@ export class CountryDetailsContainer extends Component {
     
 
     async componentDidMount(){
-        this.props.fetchAllCountries();
+        const response = await covidApi.get('/countries');
+        const data = response.data;
+        const countries =  data.countries.map((country)=>{
+            return {
+                text: country.name,
+                key: country.iso2,
+                value: country.iso3,
+                flag: country.iso2 ? country.iso2.toLowerCase() : ''
+            }
+        });
+
         this.getCountrySummary(this.state.selectedCountry);
+        this.setState({countries})
+        
     }
     
     getCountrySummary = async (selectedCountry) => {
+        covidApi.get(`/countries/${selectedCountry}`)
+        .then(response => {
+            const confirmed = response.data.confirmed.value;
+            const recovered = response.data.recovered.value;
+            const deaths = response.data.deaths.value;
+            const lastUpdated = `${new Date(response.data.lastUpdate).toLocaleDateString()} ${new Date(response.data.lastUpdate).toLocaleTimeString()}`;
+            const recoverRatePercentage = `${Math.round((recovered / confirmed) * 100)} % Recoverey Rate`;
+            const deathRatePercentage = `${Math.round((deaths / confirmed) * 100)} % Fatality Rate`;
+            
+            this.setState({
+                countryStautusSummary: {
+                    confirmed,
+                    recovered,
+                    deaths,
+                    recoverRatePercentage,
+                    deathRatePercentage
+                },
+                lastUpdated,
+                noDataFound: false
+            });
 
-        this.props.fetchCountrySummary(selectedCountry);
-        this.props.fetchCountryDetails(selectedCountry);
+            covidApi.get(`/countries/${selectedCountry}/confirmed`).then(res=>{
+                
+                const filtertedData = res.data.map((item)=>{
+                        return {
+                            combinedKey: item.combinedKey,
+                            confirmed: item.confirmed,
+                            active: item.active,
+                            deaths: item.deaths,
+                            incidentRate: item.incidentRate ? item.incidentRate.toFixed(2) : 0,
+                            lastUpdate: new Date(item.lastUpdate).toLocaleDateString()
+
+                        }
+                });
+                //console.log(filtertedData);
+
+                this.setState({
+                    countryDetails: filtertedData
+                });
+            });
+
+        }).catch((e)=>{
+                this.setState({
+                noDataFound: true
+            });             
+        });
     }
 
     onChange = (e) =>{
+        //console.log(e)
         this.setState({selectedCountry:e});
         this.getCountrySummary(e);
     }
@@ -58,31 +120,31 @@ export class CountryDetailsContainer extends Component {
             deaths,
             recoverRatePercentage,
             deathRatePercentage
-        } = this.props.summary;
+        } = this.state.countryStautusSummary;
 
-        if(this.props.summary){
+        if(!this.state.noDataFound){
             return(
                 <>
                 <Grid container spacing={3} style={{padding: '20px'}}>
                     <Grid item xs>
                         <Paper>
-                            <Cards color="orange-card-footer" category="Confirmed" count={confirmed?confirmed:0} ratePercentage = {""}/>
+                            <Cards color="orange-card-footer" category="Confirmed" count={confirmed} ratePercentage = {""}/>
                         </Paper>
                     </Grid>
                     <Grid item xs>
                         <Paper>
-                            <Cards color="olive-card-footer" category="Recovered" count={recovered?recovered:0} ratePercentage = {recoverRatePercentage}/>
+                            <Cards color="olive-card-footer" category="Recovered" count={recovered} ratePercentage = {recoverRatePercentage}/>
                         </Paper>
                     </Grid>
                     <Grid item xs>
                         <Paper>
-                            <Cards color="red-card-footer" category="Deaths" count={deaths?deaths:0} ratePercentage = {deathRatePercentage}/>
+                            <Cards color="red-card-footer" category="Deaths" count={deaths} ratePercentage = {deathRatePercentage}/>
                         </Paper>
                     </Grid>
                 </Grid>
                 <Grid container spacing={3} style={{padding: '20px'}}>
                     <Grid item xs>
-                        <CountryDetailsTable columns={this.columns} data={this.props.details} />
+                        <CountryDetailsTable columns={this.columns} data={this.state.countryDetails} />
                     </Grid>
                 </Grid>
                 </>
@@ -104,7 +166,7 @@ export class CountryDetailsContainer extends Component {
     }
 
     render() {
-        if(this.props.countries && this.props.countries.length > 0){
+        if(this.state.countries.length > 0){
             return (
                 <div style={{marginTop: '25px'}}>
                     <Divider variant="middle" />
@@ -115,11 +177,11 @@ export class CountryDetailsContainer extends Component {
                                     Country Wise Details
                                 </Typography>
                                 <Typography variant="subtitle1" gutterBottom>
-                                    Last updated on {this.props.summary.lastUpdated}.
+                                    Last updated on {this.state.lastUpdated}.
                                 </Typography>
                             </Box>
                         </Grid>
-                        <CountryDDL values={this.props.countries} onChange={this.onChange} selectedCountry={this.state.selectedCountry}/>
+                        <CountryDDL values={this.state.countries} onChange={this.onChange} selectedCountry={this.state.selectedCountry}/>
                     </Container>
                     {
                         this.renderCountrySummary()
@@ -132,19 +194,4 @@ export class CountryDetailsContainer extends Component {
     }
 }
 
-const mapStateToProps = (state) =>{
-    return {
-        countries : state.countryDetails.countries,
-        summary: state.countryDetails.summary,
-        details: state.countryDetails.details
-    }
-  }
-  
-  const mapDispatchToProps = (dispatch) =>  bindActionCreators({
-    fetchAllCountries,
-    fetchCountrySummary,
-    fetchCountryDetails
-  },dispatch);
-  
-
-export default connect(mapStateToProps,mapDispatchToProps)(CountryDetailsContainer)
+export default CountryDetailsContainer

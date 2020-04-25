@@ -1,52 +1,33 @@
 import React, { Component } from 'react';
+import {fetchGlobalData} from '../../redux/actions';
+
+import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+
+
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import api from '../../apis/covid19.api';
 import Cards from '../UI/Cards';
 
 export class GlobalSummary extends Component {
-
-  state = {
-    globalConfirmed : 0,
-    globalRecovered: 0,
-    globaldeaths : 0,
-    lastUpdated : '',
+  
+  componentDidMount(){
+    this.props.fetchGlobalData()
   }
 
-  async componentDidMount(){
-    const response = await api.get('/');
-    //console.log(response.data);
-    const globalConfirmed = response.data.confirmed.value;
-    const globalRecovered = response.data.recovered.value;
-    const globaldeaths = response.data.deaths.value;
-    const lastUpdated = `${new Date(response.data.lastUpdate).toLocaleDateString()} ${new Date(response.data.lastUpdate).toLocaleTimeString()}`;
-    const recoverRatePercentage = `${Math.round((globalRecovered / globalConfirmed) * 100)} % Recoverey Rate`;
-    const deathRatePercentage = `${Math.round((globaldeaths / globalConfirmed) * 100)} % Fatality Rate`;
-
-
-    this.setState({
-      globalConfirmed,
-      globalRecovered,
-      globaldeaths,
-      lastUpdated,
-      recoverRatePercentage,
-      deathRatePercentage
-    })
-  }
-
-  render() {
+  renderGlobalContent = () =>{
     const {
-      globalConfirmed,
-      globalRecovered,
-      globaldeaths,
+      confirmed,
+      recovered,
+      deaths,
       recoverRatePercentage,
       deathRatePercentage
-    } = this.state;
+    } = this.props.global;
 
-
-    return (
+    return(
       <div>
         <Grid container spacing={3} style={{padding: '20px'}}>
             <Grid item xs={12}>
@@ -55,29 +36,50 @@ export class GlobalSummary extends Component {
                   Global Status
                 </Typography>
                 <Typography variant="subtitle1" gutterBottom>
-                  Last updated on {this.state.lastUpdated}.
+                  Last updated on {this.props.global.lastUpdated}.
                 </Typography>
               </Box>
             </Grid>
             <Grid item xs>
               <Paper>
-                <Cards color="orange-card-footer" category="Confirmed" count={globalConfirmed} ratePercentage = {""}/>
+                <Cards color="orange-card-footer" category="Confirmed" count={confirmed?confirmed:0} ratePercentage = {""}/>
               </Paper>
             </Grid>
             <Grid item xs>
               <Paper>
-                <Cards color="olive-card-footer" category="Recovered" count={globalRecovered} ratePercentage = {recoverRatePercentage}/>
+                <Cards color="olive-card-footer" category="Recovered" count={recovered?recovered:0} ratePercentage = {recoverRatePercentage}/>
               </Paper>
             </Grid>
             <Grid item xs>
               <Paper>
-                <Cards color="red-card-footer" category="Deaths" count={globaldeaths} ratePercentage = {deathRatePercentage}/>
+                <Cards color="red-card-footer" category="Deaths" count={deaths?deaths:0} ratePercentage = {deathRatePercentage}/>
               </Paper>
             </Grid>
         </Grid>
       </div>
     )
   }
+
+
+  render() {
+    return(
+      <>
+        {
+          this.renderGlobalContent()
+        }
+      </>
+    )
+  }
 }
 
-export default GlobalSummary
+const mapStateToProps = (state) =>{
+  return {
+    global : {...state.global}
+  }
+}
+
+const mapDispatchToProps = (dispatch) =>  bindActionCreators({
+  fetchGlobalData
+},dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(GlobalSummary)
