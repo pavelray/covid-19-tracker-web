@@ -28,7 +28,7 @@ export class GlobalSummary extends Component {
     } = this.props.global;
 
     return(
-      <div>
+      <>
         <Grid container spacing={3} style={{padding: '20px'}}>
             <Grid item xs={12}>
               <Box style={{textAlign:'center'}}>
@@ -56,7 +56,7 @@ export class GlobalSummary extends Component {
               </Paper>
             </Grid>
         </Grid>
-      </div>
+      </>
     )
   }
 

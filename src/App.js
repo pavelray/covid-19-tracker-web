@@ -1,6 +1,6 @@
 import React from 'react';
 import Nav from './components/nav-bar/Nav'
-import GlobalSummary from './components/global-summary/GlobalSummary';
+import GlobalSummaryContainer from './components/global-summary/GlobalSummaryContainer';
 import CountryDetailsContainer from './components/country-details/CountryDetailsContainer';
 import Footer from './components/nav-bar/Footer';
 
@@ -11,9 +11,9 @@ function App() {
   return (
     <>
       <Nav title={appTitlePrimary} sub={appTitleSecondary} />
-      <div style={{padding:'10px'}}>
-        <GlobalSummary />
-        <CountryDetailsContainer />
+      <div style={{padding:'10px', minHeight: '90vh'}}>
+        <GlobalSummaryContainer />
+        {/* <CountryDetailsContainer /> */}
       </div>
       <Footer />
     </>

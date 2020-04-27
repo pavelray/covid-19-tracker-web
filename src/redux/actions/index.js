@@ -1,4 +1,5 @@
 import country from "../../apis/country.api";
+import covid19Api from '../../apis/api.covid19api';
 import covid19Global from '../../apis/covid19.api';
 import {ACTION_TYPE} from '../../resources/const'
 
@@ -15,6 +16,14 @@ import _ from 'lodash';
 export const fetchGlobalData = () => async dispatch =>{
     const response = await covid19Global.get('/');
     dispatch({type:ACTION_TYPE.FETCH_GLOBAL_DATA, payload: response.data});
+}
+
+export const fetchAllCountrySummary = () => async dispatch => {
+    const response = await covid19Api.get('/summary');
+    dispatch({
+        type: ACTION_TYPE.FETCH_ALL_COUNTRY_SUMMARY,
+        payload: response.data
+    });
 }
 
 export const fetchCountrySummary = (selectedCountry) => async dispatch =>{
