@@ -38,6 +38,16 @@ export const MapChart = (props) => {
                   key={geo.rsmKey}
                   geography={geo}
                   fill={d ? colorScale(d.percentageNumber*100) : "#F5F4F6"}
+                  style={{
+                    hover: {
+                      fill: "#F53",
+                      outline: "none"
+                    },
+                    pressed: {
+                      fill: "#E42",
+                      outline: "none"
+                    }
+                  }}
                 />
               );
             })
