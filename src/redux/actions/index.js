@@ -14,7 +14,7 @@ import _ from 'lodash';
 // }
 
 export const fetchGlobalData = () => async dispatch =>{
-    const response = await covid19Global.get('/');
+    const response = await covid19Api.get('/summary');
     dispatch({type:ACTION_TYPE.FETCH_GLOBAL_DATA, payload: response.data});
 }
 
