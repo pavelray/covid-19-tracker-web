@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import {LightenDarkenColor} from '../../resources/helper';
+import React from "react";
 import { scaleLinear } from "d3-scale";
 import {
   ComposableMap,
