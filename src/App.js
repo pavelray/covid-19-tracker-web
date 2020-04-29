@@ -6,6 +6,7 @@ import { Layout, Row, Col } from 'antd';
 import GlobalStatsContainer from './components/globalContent/GlobalStatsContainer';
 
 import { Tabs } from 'antd';
+import  IndiaStatesSummary  from './components/india-stats/IndiaStatesSummary';
 
 const { TabPane } = Tabs;
 
@@ -32,7 +33,7 @@ function App() {
             <TabPane tab="India" key="2">
               <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                 <Col className="gutter-row" span={24}>
-                  <h3>Work in Progress</h3>
+                  <IndiaStatesSummary/>
                 </Col>
               </Row>
             </TabPane>

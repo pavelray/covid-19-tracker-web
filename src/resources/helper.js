@@ -22,7 +22,10 @@ export function LightenDarkenColor(col, amt) {
 export const generateFillColor = (confirmed) => {
     let colorScale = '#b30000';
 
-    if (confirmed <= 99) {
+    if (confirmed===0){
+        colorScale = '#ffede5';
+    }
+    else if (0 <= confirmed && confirmed <= 99) {
         colorScale = '#ff8080';
     } 
     else if (100 <= confirmed && confirmed <= 999) {

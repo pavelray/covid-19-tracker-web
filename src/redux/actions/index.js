@@ -1,6 +1,5 @@
-import country from "../../apis/country.api";
 import covid19Api from '../../apis/api.covid19api';
-import covid19Global from '../../apis/covid19.api';
+import covid19IndiaApi from '../../apis/api.covid19India';
 import {ACTION_TYPE} from '../../resources/const'
 
 import _ from 'lodash';
@@ -26,18 +25,28 @@ export const fetchAllCountrySummary = () => async dispatch => {
     });
 }
 
-export const fetchCountrySummary = (selectedCountry) => async dispatch =>{
-    const response = await covid19Global.get(`/countries/${selectedCountry}`);
-    dispatch({type:ACTION_TYPE.FETCH_COUNTRY_SUMMARY, payload: response.data});
+export const fetchIndiaStateSummary = () => async dispatch =>{
+    const response = await covid19IndiaApi.get('/data.json');
+    dispatch({
+        type: ACTION_TYPE.FETCH_INDIA_STATE_SUMMARY,
+        payload: response.data
+    });
 }
 
-export const fetchCountryDetails = (selectedCountry) => async dispatch =>{
-    const response = await covid19Global.get(`/countries/${selectedCountry}/confirmed`);
-    dispatch({type:ACTION_TYPE.FETCH_COUNTRY_DETAILS, payload: response.data});
-}
 
-export const fetchAllCountries = () => async dispatch =>{
-    const response = await covid19Global.get('/countries');
-    dispatch({type:ACTION_TYPE.FETCH_ALL_COUNTRIES_NAME, payload: response.data});
-}
+// /// Not In use
+// export const fetchCountrySummary = (selectedCountry) => async dispatch =>{
+//     const response = await covid19Global.get(`/countries/${selectedCountry}`);
+//     dispatch({type:ACTION_TYPE.FETCH_COUNTRY_SUMMARY, payload: response.data});
+// }
+
+// export const fetchCountryDetails = (selectedCountry) => async dispatch =>{
+//     const response = await covid19Global.get(`/countries/${selectedCountry}/confirmed`);
+//     dispatch({type:ACTION_TYPE.FETCH_COUNTRY_DETAILS, payload: response.data});
+// }
+
+// export const fetchAllCountries = () => async dispatch =>{
+//     const response = await covid19Global.get('/countries');
+//     dispatch({type:ACTION_TYPE.FETCH_ALL_COUNTRIES_NAME, payload: response.data});
+// }
 

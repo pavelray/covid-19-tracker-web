@@ -36,10 +36,10 @@ export const MapChart = (props) => {
                   return (
                     <Geography key={geo.rsmKey} geography={geo}
                       values={d?d.confirmed:0}
-                      fill={d ? generateFillColor(d.confirmed) : "#F5F4F6"}
+                      fill={d ? generateFillColor(d.confirmed) : "#f8f8ff"}
                       style={{hover: {fill: "#F53", outline: "none"}}}
                       onMouseEnter={(e) => {
-                        const { NAME, confirmed, recovered,deaths } = geo.properties;
+                        const { NAME} = geo.properties;
                         props.setTooltipContent(renderToolTipContent(NAME, geo.confirmed, geo.recovered, geo.deaths));
                       }}
                       onMouseLeave={() => {
