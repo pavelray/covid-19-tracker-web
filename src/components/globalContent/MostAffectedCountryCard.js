@@ -22,7 +22,7 @@ export class MostAffectedCountryCard extends Component {
                     <Title level={4}>Most Affected Countires</Title>
                         <List
                             bordered={false}
-                            dataSource={countries.slice(0,5)}
+                            dataSource={countries.slice(0,10)}
                             renderItem={country => (
                                 <List.Item extra={country.percentage} key={country.code.toLowerCase()}>
                                     <Typography.Text>{country.name}</Typography.Text> 
@@ -30,7 +30,7 @@ export class MostAffectedCountryCard extends Component {
                             )}
                         /> 
                     </Col>
-                    <Col className="gutter-row" flex="3">
+                    <Col className="gutter-row" flex="auto" style={{minWidth:'200px'}}>
                         {this.renderMap()}
                     </Col>
                 </Row>

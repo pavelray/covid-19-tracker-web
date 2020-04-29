@@ -32,3 +32,11 @@ body{
     text-align: right  !important;
     color: white;
 }
+
+.site-custom-tab-bar {
+    z-index: 1;
+    background: #fff;
+    width: auto;
+    flex: 1;
+    padding-left: 25px;
+}

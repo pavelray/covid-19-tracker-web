@@ -45,10 +45,10 @@ export class GlobalStatsContainer extends Component {
         return (
         <Content>
             <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-                <Col className="gutter-row" flex="1">
+                <Col className="gutter-row" flex="2">
                     {this.renderGlobalStats()}
                 </Col>
-                <Col className="gutter-row" flex="auto">
+                <Col className="gutter-row" flex="5">
                     {this.renderMostAffectedCard()}
                 </Col>
             </Row>
