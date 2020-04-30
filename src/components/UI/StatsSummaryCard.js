@@ -6,7 +6,6 @@ import { Card, Statistic, Row, Col, Typography, Space,Badge, Tag  } from 'antd';
 const { Title  } = Typography
 
 export const StatsSummaryCard = (props) =>{
-    console.log(props);
     const {
         totalConfirmed,
         totalRecovered,
@@ -34,7 +33,7 @@ export const StatsSummaryCard = (props) =>{
                 </Col>
                 {totalActive && <Col className="gutter-row" flex="2">
                     <Statistic
-                    title="Recovered"
+                    title="Active"
                     formatter={()=><CountUp end={totalActive?totalActive:0} separator =","/>}
                     valueStyle={{ color: 'volcano' }}
                     />

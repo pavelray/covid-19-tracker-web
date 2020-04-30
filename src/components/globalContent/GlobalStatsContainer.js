@@ -8,7 +8,6 @@ import { bindActionCreators } from 'redux';
 import { Layout, Row, Col } from 'antd';
 import GlobalStatsCard from './GlobalStatsCard';
 import MostAffectedCountryCard from './MostAffectedCountryCard';
-import GlobalMap from './GlobalMap';
 
 const { Content } = Layout;
 
@@ -58,7 +57,6 @@ export class GlobalStatsContainer extends Component {
 }
 
 const mapStateToProps = (state) =>{
-console.log(state);
   return {
     global : {...state.global.global},
     recoverRatePercentage: state.global.recoverRatePercentage,

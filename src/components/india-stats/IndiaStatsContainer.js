@@ -17,7 +17,6 @@ export class IndiaStatsContainer extends Component {
     }
 
     renderStatsSummary = () =>{
-        console.log(this.props.summary);
 
         const statsSummary = {
             totalConfirmed: this.props.summary.confirmed,
@@ -26,7 +25,7 @@ export class IndiaStatsContainer extends Component {
             newConfirmed: this.props.summary.deltaconfirmed,
             newRecovered: this.props.summary.deltarecovered,
             newDeaths: this.props.summary.deltadeaths,
-            totalActive: this.props.summary.confirmed,
+            totalActive: this.props.summary.active,
             recoverRatePercentage: `${Math.round((this.props.summary.recovered / this.props.summary.confirmed) * 100)} % Recoverey Rate`,
             deathRatePercentage: `${Math.round((this.props.summary.deaths / this.props.summary.confirmed) * 100)} % Fatality Rate`,
             lastUpdated: this.props.summary.lastupdatedtime,
