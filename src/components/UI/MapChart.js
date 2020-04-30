@@ -1,13 +1,9 @@
 import React from "react";
-import { scaleLinear } from "d3-scale";
-import ReactTooltip from "react-tooltip";
 
 import {
   ComposableMap,
   Geographies,
   Geography,
-  Sphere,
-  Graticule,
   ZoomableGroup
 } from "react-simple-maps";
 import {generateFillColor,renderToolTipContent} from '../../resources/helper';
