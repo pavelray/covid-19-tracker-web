@@ -24,7 +24,7 @@ export default function Nav(props) {
       <AppBar position="static" >
         <Toolbar>
           <img src={logo} alt='Logo' width="50" height="50"/>
-          <Typography variant="h6" className={classes.title} style={{marginLeft: '15px'}}>
+          <Typography variant="h6" className={classes.title} style={{marginLeft: '15px' , color: 'white'}}>
             {props.title}
           </Typography>
         </Toolbar>

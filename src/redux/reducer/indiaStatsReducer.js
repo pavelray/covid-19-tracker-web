@@ -3,6 +3,8 @@ import { sortByProperty } from '../../resources/helper';
 
 const INITIAL_STATE = {
     allStates: [],
+    casesTimeSeriesChartData: [],
+    casesTimeSeriesChartDataConfirmed: []
     
 }
 
@@ -17,7 +19,20 @@ export default (state = INITIAL_STATE, action) => {
                     key: count,
                     ...state
                 }
-            })
+            });
+
+            state.casesTimeSeriesChartDataCategory = action.payload.cases_time_series.map((series)=>{
+                return {
+                        date: new Date(new Date(series.date).setYear('2020')),
+                        confirmed: parseInt(series.totalconfirmed),
+                        deaths: parseInt(series.totaldeceased),
+                        recovered: parseInt(series.totalrecovered)
+                    }
+            });
+
+            state.casesTimeSeriesChartDataConfirmed = action.payload.cases_time_series.map((series) => {
+                return series.totalconfirmed
+            });
 
             return {
                 ...state

@@ -7,6 +7,7 @@ import store from './redux'
 
 import './styles/index.css';
 
+
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(

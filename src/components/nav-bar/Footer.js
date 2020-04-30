@@ -31,15 +31,11 @@ export default function Footer() {
             <Grid item xs={12}>
                 <Box style={{textAlign:'center'}}>
                     <Typography variant="subtitle1" gutterBottom >
-                        Developed By <a href="https://github.com/pavelray" style={{color: 'white'}}>#Ray</a> with <sub><FavoriteIcon /></sub> from India
-                    </Typography>
-                    <Typography variant="subtitle2" gutterBottom>
-                       API Used - <a href="https://github.com/mathdroid/covid-19-api" style={{color: 'white'}}>https://github.com/mathdroid/covid-19-api</a>
+                        Developed By <a href="https://github.com/pavelray" style={{color: 'white'}}>#Ray</a>
                     </Typography>
                     <Typography variant="subtitle2" gutterBottom>
                       <CopyrightIcon/><sup>{new Date().getFullYear()}</sup> 
                     </Typography>
-                    
                 </Box>
             </Grid>
         </Container>
