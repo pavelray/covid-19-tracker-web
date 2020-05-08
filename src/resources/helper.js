@@ -75,4 +75,8 @@ export function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
 }
 
+export function percentageCalculator(actual, total) {
+    return Math.round((actual / total) * 100);
+}
+
 // TEST

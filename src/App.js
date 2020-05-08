@@ -1,6 +1,6 @@
 import React from 'react';
 import Nav from './components/nav-bar/Nav'
-import Footer from './components/nav-bar/Footer';
+import PageFooter from './components/nav-bar/Footer';
 import 'antd/dist/antd.css';
 import { Layout, Row, Col } from 'antd';
 import GlobalStatsContainer from './components/globalContent/GlobalStatsContainer';
@@ -41,7 +41,7 @@ function App() {
             </TabPane>
           </Tabs>
         </div>
-        <Footer />
+        <PageFooter />
     </Layout>
   );
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import CountUp from 'react-countup';
+import { FundTwoTone } from '@ant-design/icons';
 
 import { Card, Statistic, Row, Col, Typography, Space,Badge, Tag  } from 'antd';
 
@@ -22,7 +23,7 @@ export const StatsSummaryCard = (props) =>{
     return (
         <Card>
             <Space direction="vertical">
-            <Title level={4}>{props.title}</Title>
+            <Title level={4}>{props.title} &nbsp; <FundTwoTone /></Title>
             <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                 <Col className="gutter-row" flex="2">
                     <Statistic

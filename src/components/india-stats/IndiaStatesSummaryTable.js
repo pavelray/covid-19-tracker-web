@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {formatNumber} from '../../resources/helper';
+import {formatNumber,percentageCalculator} from '../../resources/helper';
 
 import { Table, Tag, Row, Col, Badge } from 'antd';
 
@@ -53,8 +53,11 @@ export class IndiaStatesSummaryTable extends Component {
     renderDeltaInfo = (record) => {
         return (
             <div style={{padding:'10px'}}>
-                <label>{record.state}</label>
-                <br/>
+                <p>
+                    Stats: &nbsp; &nbsp;
+                    <Tag color="green">{percentageCalculator(record.recovered, record.confirmed)}% Recoverey Rate</Tag>
+                    <Tag color="volcano">{percentageCalculator(record.deaths, record.confirmed)}% Fatality Rate</Tag>
+                </p>
                 <Badge color="orange" text="New Confrimed" />:&nbsp;{record.deltaconfirmed}
                 <br/>
                 <Badge color="green" text="New Recovered" />:&nbsp;{record.deltarecovered}

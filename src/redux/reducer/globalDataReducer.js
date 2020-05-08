@@ -1,5 +1,5 @@
 import {ACTION_TYPE} from '../../resources/const';
-import {sortByProperty} from '../../resources/helper';
+import {sortByProperty,percentageCalculator} from '../../resources/helper';
 
 const INITIAL_STATE = {
     global: {},
@@ -22,8 +22,8 @@ export default (state = INITIAL_STATE, action) => {
                 totalRecovered: data.TotalRecovered
             }
 
-            state.recoverRatePercentage = `${Math.round((global.totalRecovered / global.totalConfirmed) * 100)} % Recoverey Rate`;
-            state.deathRatePercentage = `${Math.round((global.totalDeaths / global.totalConfirmed) * 100)} % Fatality Rate`;
+            state.recoverRatePercentage = `${percentageCalculator(global.totalRecovered,global.totalConfirmed)} % Recoverey Rate`;
+            state.deathRatePercentage = `${percentageCalculator(global.totalDeaths,global.totalConfirmed)} % Fatality Rate`;
             state.lastUpdated = `${new Date(action.payload.Date).toLocaleDateString()} ${new Date(action.payload.Date).toLocaleTimeString()}`;
             state.global = global
 

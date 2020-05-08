@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Card, List, Tag ,Statistic, Row, Col, Typography, Space,Badge  } from 'antd';
+import { Card, List, Row, Col, Typography} from 'antd';
 import GlobalMap from './GlobalMap';
+import { FireTwoTone } from '@ant-design/icons';
+
 
 const { Title  } = Typography
 
@@ -19,7 +21,7 @@ export class MostAffectedCountryCard extends Component {
             <Card>
                 <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                     <Col className="gutter-row" flex="auto">
-                    <Title level={4}>Most Affected Countires</Title>
+                    <Title level={4}>Most Affected Countires &nbsp; <FireTwoTone /></Title>
                         <List
                             bordered={false}
                             dataSource={countries.slice(0,10)}

@@ -1,43 +1,22 @@
 import React from 'react';
+import { Layout } from 'antd';
+import { CopyrightTwoTone  } from '@ant-design/icons';
+const { Footer } = Layout;
 
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
-import CopyrightIcon from '@material-ui/icons/Copyright';
-import blue from '@material-ui/core/colors/blue';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-     top: 'auto',
-    bottom: 0,
-  },
-  title: {
-    flexGrow: 1,
-    fontFamily: 'Baloo Paaji 2, cursive',
-  },
-}));
-
-export default function Footer() {
-  const classes = useStyles();
-  const color = blue[500];
+export default function PageFooter() {
   return (
-   
-      <AppBar position="static" className={classes.root} style={{backgroundColor: color , color: 'black'}}>
-        <Container maxWidth = "sm" style={{padding: '20px'}} >
-            <Grid item xs={12}>
-                <Box style={{textAlign:'center'}}>
-                    <Typography variant="subtitle1" gutterBottom >
-                        Developed By <a href="https://github.com/pavelray" style={{color: 'white'}}>#Ray</a>
-                    </Typography>
-                    <Typography variant="subtitle2" gutterBottom>
-                      <CopyrightIcon/><sup>{new Date().getFullYear()}</sup> 
-                    </Typography>
-                </Box>
-            </Grid>
-        </Container>
-      </AppBar>
+     <Footer style={{ textAlign: 'center', backgroundColor:'#2196f3' }}>
+       <p>
+          Developed by <a href="https://github.com/pavelray" style={{color: 'black'}} >#Ray</a>
+       </p>
+       <p>
+          Covid-19 Tracker <CopyrightTwoTone  spin twoToneColor="#eb2f96"/> &nbsp;{new Date().getFullYear()}
+       </p>
+       
+       {/* <p>
+          API Used : <a href="https://api.covid19api.com" style={{color: 'black'}}>covid19api</a>&nbsp;and&nbsp; 
+          <a href="https://api.covid19india.org" style={{color: 'black'}}>covid19india</a>
+       </p> */}
+     </Footer>
   )
 }
