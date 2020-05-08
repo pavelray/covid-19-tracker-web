@@ -2,7 +2,6 @@ import React from 'react'
 import MapChart from '../UI/MapChart';
 import ReactTooltip from "react-tooltip";
 import { Typography , Tag} from 'antd';
-import { HeatMapOutlined } from '@ant-design/icons';
 
 const { Title  } = Typography
 
@@ -14,7 +13,7 @@ function GlobalMap(props) {
     if (props.countries.length > 0) {
         return (
         <div>
-            <Title level={4}>World Map &nbsp; <HeatMapOutlined /></Title>
+            <Title level={4} style={{textAlign:'center'}}>World Map </Title>
             <MapChart countries={props.countries} totalConfirmed={props.totalConfirmed} setTooltipContent={setContent}/>
             <ReactTooltip backgroundColor="white">{content}</ReactTooltip>
 
