@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {formatNumber,percentageCalculator} from '../../resources/helper';
 
-import { Table, Tag, Row, Col, Badge } from 'antd';
+import { Table, Tag, Tooltip, Badge, Card } from 'antd';
 
 export class IndiaStatesSummaryTable extends Component {
     
@@ -13,7 +13,9 @@ export class IndiaStatesSummaryTable extends Component {
         fixed: 'left',
         ellipsis: true,
         responsive: ['md'],
-        render: text => <label>{text}</label>,
+        render: text => (<Tooltip title={text}>
+                                <label>{text}</label>
+                        </Tooltip>),
     },
     {
         title: 'Confirmed',
@@ -50,6 +52,8 @@ export class IndiaStatesSummaryTable extends Component {
     
 ];
 
+   
+
     renderDeltaInfo = (record) => {
         return (
             <div style={{padding:'10px'}}>
@@ -65,22 +69,24 @@ export class IndiaStatesSummaryTable extends Component {
                 <Badge color="red" text="New Deaths" />:&nbsp;{record.deltadeaths}
                 <br/>
                 <label>Last Updated:&nbsp;{record.lastupdatedtime}</label>
+                <p>{record.statenotes}</p>
             </div>
         )
     }
 
     render() {
         return (
-
-            <Row>
-                <Col flex="1">
-                    <Table columns={this.columns} dataSource={this.props.allStates} size="small"
-                        expandable={{
-                            expandedRowRender: record => (this.renderDeltaInfo(record))
-                        }}
-                        title={() => 'State Wise Stats'}/>
-                </Col>
-            </Row>
+          <Card>
+                <h3 style={{textAlign: 'center'}}>
+                    State Wise Stats
+                </h3>
+                <Table columns={this.columns} dataSource={this.props.allStates} size="small"
+                    expandable={{
+                        expandedRowRender: record => (this.renderDeltaInfo(record))
+                    }}
+                />
+          </Card>  
+         
         )
     }
 }

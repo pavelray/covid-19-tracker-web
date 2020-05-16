@@ -20,6 +20,12 @@ export const StatsSummaryCard = (props) =>{
         lastUpdated
     } = props;
 
+    const confirmed = totalConfirmed ? parseInt(totalConfirmed) : 0;
+    const active = totalActive ? parseInt(totalActive):0;
+    const recovered = totalRecovered ? parseInt(totalRecovered) : 0;
+    const deaths = totalDeaths ? parseInt(totalDeaths) : 0;
+
+
     return (
         <Card>
             <Space direction="vertical">
@@ -28,28 +34,28 @@ export const StatsSummaryCard = (props) =>{
                 <Col className="gutter-row" flex="2">
                     <Statistic
                     title="Confirmed"
-                    formatter={()=><CountUp end={totalConfirmed?totalConfirmed:0} separator =","/>}
+                    formatter={()=><CountUp end={confirmed} separator =","/>}
                     valueStyle={{ color: 'orange' }}
                     />
                 </Col>
                 {totalActive && <Col className="gutter-row" flex="2">
                     <Statistic
                     title="Active"
-                    formatter={()=><CountUp end={totalActive?totalActive:0} separator =","/>}
+                    formatter={()=><CountUp end={active} separator =","/>}
                     valueStyle={{ color: 'volcano' }}
                     />
                 </Col>}
                 <Col className="gutter-row" flex="2">
                     <Statistic
                     title="Recovered"
-                    formatter={()=><CountUp end={totalRecovered?totalRecovered:0} separator =","/>}
+                    formatter={()=><CountUp end={recovered} separator =","/>}
                     valueStyle={{ color: 'green' }}
                     />
                 </Col>
                 <Col className="gutter-row" flex="2">
                     <Statistic
                     title="Deaths"
-                    formatter={()=><CountUp end={totalDeaths?totalDeaths:0} separator =","/>}
+                    formatter={()=><CountUp end={deaths} separator =","/>}
                     valueStyle={{ color: 'red' }}
                     />
                 </Col>
@@ -61,13 +67,13 @@ export const StatsSummaryCard = (props) =>{
                             <h4>Today</h4>
                         </Col>
                         <Col flex="auto">
-                           <Badge color="orange" text="Confirmed" />: <CountUp end={newConfirmed?newConfirmed:0} separator =","/>
+                           <Badge color="orange" text="Confirmed" />: <CountUp end={newConfirmed?parseInt(newConfirmed):0} separator =","/>
                         </Col>
                         <Col flex="auto">
-                            <Badge color="green" text="Recovered" />: <CountUp end={newRecovered?newRecovered:0} separator =","/>
+                            <Badge color="green" text="Recovered" />: <CountUp end={newRecovered?parseInt(newRecovered):0} separator =","/>
                         </Col>
                         <Col flex="auto">
-                            <Badge color="red" text="Deaths" />: <CountUp end={newDeaths?newDeaths:0} separator =","/>
+                            <Badge color="red" text="Deaths" />: <CountUp end={newDeaths?parseInt(newDeaths):0} separator =","/>
                         </Col>
                         <Col span={24}>
                             <br/>

@@ -7,6 +7,7 @@ import { Layout, Row, Col } from 'antd';
 import IndiaStatesSummaryTable from './IndiaStatesSummaryTable';
 import StatsSummaryCard from '../UI/StatsSummaryCard';
 import IndiaStatsChart from './IndiaStatsChart';
+import StateDetails from './StateDetails';
 
 const { Content } = Layout;
 
@@ -39,28 +40,36 @@ export class IndiaStatsContainer extends Component {
 
     renderStateSummaryTable = () =>{
         return(
-            <IndiaStatesSummaryTable allStates={this.props.allStates}/>
+            <IndiaStatesSummaryTable allStates={this.props.allStates} />
         )
+    }
+
+    renderStateDetails = () =>{
+       return(
+            <StateDetails allStates={this.props.allStates}/>
+       )
     }
 
     render() {
         return (
             <Content>
                 <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-                    <Col className="gutter-row" span={24} flex="1">
-                        <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-                            <Col flex="3" className="gutter-row">
-                                {this.renderStatsSummary()}
-                            </Col>
-                            <Col flex="auto" className="gutter-row">
-                               <IndiaStatsChart category={this.props.chatDataCategory} 
-                                    confirmed={this.props.chartDataConfirmed}/>
-                            </Col>
-                        </Row>
-                        
+                    <Col span={24} flex="1" className="gutter-row">
+                        {
+                            this.renderStatsSummary()
+                        }
+                    </Col>
+                    <Col flex="auto" className="gutter-row">
+                        <IndiaStatsChart category={this.props.chatDataCategory} 
+                            confirmed={this.props.chartDataConfirmed}/>
+                    </Col>
+                </Row>
+                <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+                    <Col className="gutter-row" flex="auto" >
+                        {this.renderStateSummaryTable()}
                     </Col>
                     <Col className="gutter-row" flex="auto">
-                        {this.renderStateSummaryTable()}
+                        {this.renderStateDetails()}
                     </Col>
                 </Row>
             </Content>

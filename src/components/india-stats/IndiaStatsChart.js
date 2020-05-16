@@ -17,7 +17,7 @@ export class IndiaStatsChart extends Component {
         return (
             <Card>
                 {this.renderTitle()}
-                <SimpleLineChart category={this.props.category} confirmed={this.props.confirmed} />
+                <SimpleLineChart category={this.props.category} />
             </Card>
         )
     }

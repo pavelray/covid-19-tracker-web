@@ -6,13 +6,15 @@ import {
     ChartSeries,
     ChartSeriesItem,
     ChartCategoryAxis,
-    ChartCategoryAxisItem
+    ChartCategoryAxisItem,
+    ChartLegend
 } from '@progress/kendo-react-charts';
 
 export const SimpleLineChart= (props) => {
     return (
         <Chart>
             <ChartTitle text={props.title} />
+            <ChartLegend position="top" orientation="horizontal" />
             <ChartSeries>
                 <ChartSeriesItem
                     name="Confirmed"

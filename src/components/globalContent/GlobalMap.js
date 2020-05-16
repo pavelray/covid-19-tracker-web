@@ -1,7 +1,7 @@
 import React from 'react'
 import MapChart from '../UI/MapChart';
 import ReactTooltip from "react-tooltip";
-import { Typography , Tag} from 'antd';
+import { Typography , Tag, Skeleton} from 'antd';
 
 const { Title  } = Typography
 
@@ -28,7 +28,7 @@ function GlobalMap(props) {
         )
     }
     else{
-        return(<></>)
+        return(<Skeleton active />)
     }
 }
 

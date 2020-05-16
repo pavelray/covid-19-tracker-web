@@ -40,3 +40,18 @@ body{
     flex: 1;
     padding-left: 25px;
 }
+
+
+.orange-zone{
+    background-color: orange;
+}
+
+.green-zone{
+    background-color: green;
+    color: white;
+}
+
+.red-zone {
+    background-color: red;
+    color: white;
+}

@@ -18,3 +18,26 @@ export const fetchIndiaStateSummary = () => async dispatch =>{
     });
 }
 
+export const fetchIndiaStateDetails = (stateCode) => async dispatch => {
+    const response = await covid19IndiaApi.get('/v2/state_district_wise.json');
+    const stateDetails = response.data.filter(state => state.statecode === stateCode);
+    
+    const zoneResponse = await covid19IndiaApi.get('/zones.json');
+    const zones = zoneResponse.data.zones.filter(zone => zone.statecode === stateCode);
+    
+    dispatch({
+        type: ACTION_TYPE.FETCH_INDIA_STATE_DETAILS,
+        payload: {stateDetails,zones}
+    });
+
+    //fetchStateZoneDetails(stateCode);
+}
+
+export const fetchStateZoneDetails = (stateCode) => async dispatch =>{
+    const response = await covid19IndiaApi.get('/zones.json');
+    const zones = response.data.zones.filter(zone => zone.statecode === stateCode);
+    dispatch({
+        type: ACTION_TYPE.FETCH_STATE_ZONE_DETAILS,
+        payload: zones
+    });
+}

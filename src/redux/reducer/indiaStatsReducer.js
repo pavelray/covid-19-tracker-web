@@ -1,11 +1,9 @@
 import { ACTION_TYPE } from '../../resources/const';
-import { sortByProperty } from '../../resources/helper';
 
 const INITIAL_STATE = {
     allStates: [],
     casesTimeSeriesChartData: [],
-    casesTimeSeriesChartDataConfirmed: []
-    
+    casesTimeSeriesChartDataConfirmed: [],
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -37,6 +35,23 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state
             };
+
+        case ACTION_TYPE.FETCH_INDIA_STATE_DETAILS:
+            const stateDetailsWithZones = action.payload.stateDetails[0].districtData.map((item,index) => ({
+                    key: index,
+                    ...item, 
+                    ...{
+                        ...action.payload.zones.filter(zone => zone.district === item.district).map(zone => ({
+                            zone: zone.zone,
+                            lastUpdated: zone.lastupdated,
+                            zoneSource: zone.source
+                        }))[0]
+                    }
+                })
+            );
+            state.stateDetails = {...action.payload.stateDetails[0]}
+            state.stateDetailsWithZones = stateDetailsWithZones;
+            return {...state}
 
         default:
             return state;

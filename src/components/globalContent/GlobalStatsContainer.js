@@ -5,7 +5,7 @@ import {fetchGlobalData} from '../../redux/actions';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Layout, Row, Col } from 'antd';
+import { Layout, Row, Col, Skeleton } from 'antd';
 import GlobalStatsCard from './GlobalStatsCard';
 import MostAffectedCountryCard from './MostAffectedCountryCard';
 
@@ -26,7 +26,7 @@ export class GlobalStatsContainer extends Component {
             )
         }
         else{
-            return(<></>)
+            return(<Skeleton active />)
         }
     }
 
@@ -36,7 +36,7 @@ export class GlobalStatsContainer extends Component {
              return(<MostAffectedCountryCard countries={countries} totalConfirmed={this.props.global.totalConfirmed} / >)
         }
         else{
-            return(<></>)
+            return(<Skeleton active />)
         }
     }
 
